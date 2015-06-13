@@ -27,45 +27,6 @@ static int __dbg(int level, const char *format, ...)
 	return rv1 + rv2;
 }
 
-#if 0
-static int __jsmnjson_get_size(jsmntok_t *t, int level)
-{
-	int i, size = 1;
-	jsmntok_t *p = t + 1;
-
-	__dbg(level, "entering\n");
-
-	if (level == 0) {
-		__dbg(level, "returning -1 (max level)1\n");
-		return -1;
-	}
-
-	if (t->size == 0) {
-		__dbg(level, "returning 1\n");
-		return 1;
-	}
-
-	for (i = 0; i < t->size; i++) {
-		int subsize;
-
-		__dbg(level, "Going sub (%d)\n", ((long int)p - (long int)t)/sizeof(jsmntok_t) );
-
-		subsize = __jsmnjson_get_size(p, level - 1);
-		if (subsize == -1) {
-			__dbg(level, "got max level, propagating\n");
-			return -1;
-		}
-
-		__dbg(level, "setting pointer + %d\n", subsize);
-		p += subsize;
-		size += subsize;
-	}
-
-	__dbg(level, "returning %d\n", size);
-	return size;
-}
-#endif
-
 static int __jsmnjson_get_size(jsmntok_t *t, int level)
 {
 	int i, size = 1;
