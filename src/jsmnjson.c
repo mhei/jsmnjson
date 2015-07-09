@@ -6,14 +6,16 @@
 #include <jsmn.h>
 #include "jsmnjson.h"
 
-#define MAX_DEPTH 8
+#ifndef JSMNJSON_JSMNJSON_MAX_DEPTH
+#define JSMNJSON_JSMNJSON_MAX_DEPTH 8
+#endif
 
 static int __dbg(int level, const char *format, ...)
 {
 	va_list ap;
 	int rv1, rv2;
 
-	rv1 = printf("%*s[%d] ", 4 * (MAX_DEPTH - level), " ", level);
+	rv1 = printf("%*s[%d] ", 4 * (JSMNJSON_MAX_DEPTH - level), " ", level);
 	if (rv1 < 0)
 		return rv1;
 
@@ -52,7 +54,7 @@ static int __jsmnjson_get_size(jsmntok_t *t, int level)
 
 int jsmnjson_get_size(jsmntok_t *t)
 {
-	return __jsmnjson_get_size(t, MAX_DEPTH);
+	return __jsmnjson_get_size(t, JSMNJSON_MAX_DEPTH);
 }
 
 long int jsmnjson_get_int(jsmntok_t *t, const char *json)
@@ -109,7 +111,7 @@ jsmntok_t *__jsmnjson_get_by_key(jsmntok_t *t, const char *json, const char *key
 		if (jsmnjson_strcmp(p, json, key) == 0)
 			return p + 1;
 
-		size = __jsmnjson_get_size(p, MAX_DEPTH);
+		size = __jsmnjson_get_size(p, JSMNJSON_MAX_DEPTH);
 		if (size == -1)
 			return NULL;
 
@@ -122,7 +124,7 @@ jsmntok_t *__jsmnjson_get_by_key(jsmntok_t *t, const char *json, const char *key
 jsmntok_t *jsmnjson_get_by_key(jsmntok_t *t, const char *json, const char *key)
 {
 	char buf[128];
-	int level = MAX_DEPTH;
+	int level = JSMNJSON_MAX_DEPTH;
 	jsmntok_t *p = t;
 	char *s = buf;
 	char *d;
