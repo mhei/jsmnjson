@@ -6,6 +6,20 @@
 #include <jsmn.h>
 #include "jsmnjson.h"
 
+#ifndef ARRAY_SIZE
+#define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
+#endif
+
+#define min(a, b) \
+	({ __typeof__ (a) _a = (a); \
+	   __typeof__ (b) _b = (b); \
+	   _a < _b ? _a : _b; })
+
+#define max(a, b) \
+	({ __typeof__ (a) _a = (a); \
+	   __typeof__ (b) _b = (b); \
+	   _a > _b ? _a : _b; })
+
 #ifndef JSMNJSON_JSMNJSON_MAX_DEPTH
 #define JSMNJSON_JSMNJSON_MAX_DEPTH 8
 #endif
