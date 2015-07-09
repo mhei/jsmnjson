@@ -81,6 +81,24 @@ long int jsmnjson_get_int(jsmntok_t *t, const char *json)
 	return strtol(&json[t->start], NULL, 10);
 }
 
+int jsmnjson_get_boolean(jsmntok_t *t, const char *json)
+{
+	int value;
+
+	if (t->type != JSMN_PRIMITIVE) {
+		errno = EINVAL;
+		return 0;
+	}
+
+	if (json[t->start] == 't')
+		return 1;
+	if (json[t->start] == 'f')
+		return 0;
+
+	value = atoi(&json[t->start]);
+	return !!value;
+}
+
 int jsmnjson_strncopy(char *dest, size_t n, jsmntok_t *t, const char *json)
 {
 	int c;
