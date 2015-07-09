@@ -20,8 +20,8 @@
 	   __typeof__ (b) _b = (b); \
 	   _a > _b ? _a : _b; })
 
-#ifndef JSMNJSON_JSMNJSON_MAX_DEPTH
-#define JSMNJSON_JSMNJSON_MAX_DEPTH 8
+#ifndef JSMNJSON_MAX_DEPTH
+#define JSMNJSON_MAX_DEPTH 8
 #endif
 
 static int __dbg(int level, const char *format, ...)
